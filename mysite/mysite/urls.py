@@ -1,4 +1,4 @@
-from rest_framework.authtoken import views
+
 """mysite URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -16,8 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from rest_framework.authtoken import views
+from django.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-token-auth/', views.obtain_auth_token),
+    # Djoser создаст набор необходимых эндпоинтов.
+    # базовые, для управления пользователями в Django:
+    path('auth/', include('djoser.urls')),
+    # JWT-эндпоинты, для управления JWT-токенами:
+    path('auth/', include('djoser.urls.jwt')),
 ]
